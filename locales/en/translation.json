@@ -1,0 +1,32 @@
+{
+  "title": "Ganesh Festival Bus Registration",
+  "subtitle": "Passenger Registration Form",
+  "personalDetails": "Personal Details",
+  "addressDetails": "Address Details",
+  "travelDetails": "Travel Details",
+  "name": "Full Name",
+  "mobile": "Mobile Number",
+  "dob": "Date of Birth",
+  "aadhaar": "Aadhaar Number",
+  "voter": "Voter ID Number",
+  "address": "Full Address",
+  "addressPlaceholder": "Enter full address including house number, building, area and landmark",
+  "destination": "Destination",
+  "selectDestination": "Select Destination",
+  "ward": "Ward Number",
+  "selectWard": "Select Ward",
+  "submit": "Submit",
+  "clear": "Clear",
+  "adminLogin": "Admin Login",
+  "footer": "Designed & Developed by Ankit Shinde",
+
+ "errors": {
+  "name": "Please enter your full name.",
+  "mobile": "Please enter a valid 10-digit mobile number.",
+  "dob": "Please select date of birth.",
+  "aadhaar": "Aadhaar must be exactly 12 digits.",
+  "address": "Please enter full address.",
+  "destination": "Please select destination.",
+  "ward": "Please select ward."
+}
+}
