@@ -1,24 +1,44 @@
 @media print {
+  body * {
+    visibility: hidden !important;
+  }
 
-  header,
-  aside,
-  button {
+  .print-area,
+  .print-area * {
+    visibility: visible !important;
+  }
+
+  .print-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+
+  .print-area button,
+  .print-area input {
     display: none !important;
   }
 
-  body {
-    background: white !important;
+  .print-area .md\:hidden { display: none !important; }
+
+  .print-area table {
+    width: 100% !important;
+    border-collapse: collapse !important;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .print-area th,
+  .print-area td {
+    border: 1px solid #000 !important;
+    padding: 8px !important;
   }
 
-  th,
-  td {
-    border: 1px solid #000;
-    padding: 8px;
+  .print-area table th:last-child,
+  .print-area table td:last-child {
+    display: none !important;
   }
-
 }
