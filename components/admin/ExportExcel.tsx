@@ -1,112 +1,199 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { Download } from "lucide-react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { supabase } from "@/lib/supabase";
 import type { DashboardFilter } from "./DashboardCards";
 
+type Passenger = {
+  id?: string;
+  name?: string;
+  mobile?: string;
+  dob?: string;
+  aadhaar?: string;
+  voter_id?: string;
+  address?: string;
+  destination?: string;
+  ward?: string;
+  created_at?: string;
+};
+
 type Props = {
   filter: DashboardFilter;
 };
 
-function isToday(dateString: string) {
+function isToday(dateString?: string) {
+  if (!dateString) return false;
+
   return (
-    new Date(dateString).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }) ===
-    new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" })
+    new Date(dateString).toLocaleDateString("en-CA", {
+      timeZone: "Asia/Kolkata",
+    }) ===
+    new Date().toLocaleDateString("en-CA", {
+      timeZone: "Asia/Kolkata",
+    })
   );
 }
 
-function applyFilter(data: any[], filter: DashboardFilter) {
-  if (filter.type === "all") return data;
-  if (filter.type === "today") return data.filter((item) => isToday(item.created_at));
+function matchesFilter(passenger: Passenger, filter: DashboardFilter) {
+  if (filter.type === "all") return true;
+
+  if (filter.type === "today") {
+    return isToday(passenger.created_at);
+  }
+
   if (filter.type === "destination") {
-    return data.filter(
-      (item) => String(item.destination).toLowerCase() === filter.value.toLowerCase()
+    return (
+      String(passenger.destination || "").toLowerCase() ===
+      filter.value.toLowerCase()
     );
   }
-  return data.filter(
-    (item) => String(item.ward).toLowerCase() === filter.value.toLowerCase()
+
+  return (
+    String(passenger.ward || "").toLowerCase() === filter.value.toLowerCase()
   );
 }
 
 export default function ExportExcel({ filter }: Props) {
-  const exportExcel = async () => {
-    const { data, error } = await supabase
-      .from("passengers")
-      .select("*")
-      .order("created_at", { ascending: false });
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
-    if (error) {
-      alert(error.message);
-      return;
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCount() {
+      const { data, error } = await supabase
+        .from("passengers")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (cancelled) return;
+
+      if (error) {
+        console.error("Unable to load export count:", error);
+        setCount(0);
+        return;
+      }
+
+      const filtered = ((data || []) as Passenger[]).filter((p) =>
+        matchesFilter(p, filter)
+      );
+
+      setCount(filtered.length);
     }
 
-    const filteredData = applyFilter(data || [], filter);
+    loadCount();
 
-    if (filteredData.length === 0) {
-      alert("No passenger data available for this selection.");
-      return;
+    return () => {
+      cancelled = true;
+    };
+  }, [filter]);
+
+  async function handleExport() {
+    try {
+      setLoading(true);
+
+      const { data, error } = await supabase
+        .from("passengers")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      const passengers = ((data || []) as Passenger[]).filter((p) =>
+        matchesFilter(p, filter)
+      );
+
+      if (passengers.length === 0) {
+        alert("No passenger data available for export.");
+        return;
+      }
+
+      const rows = passengers.map((p, index) => ({
+        "Sr. No.": index + 1,
+        Name: p.name || "",
+        Mobile: p.mobile || "",
+        "Date of Birth": p.dob || "",
+        Aadhaar: p.aadhaar || "",
+        "Voter ID": p.voter_id || "NA",
+        Address: p.address || "",
+        Destination: p.destination || "",
+        Ward: p.ward || "",
+        "Registration Date": p.created_at
+          ? new Date(p.created_at).toLocaleString("en-IN")
+          : "",
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(rows);
+      worksheet["!cols"] = [
+        { wch: 8 },
+        { wch: 25 },
+        { wch: 15 },
+        { wch: 16 },
+        { wch: 18 },
+        { wch: 18 },
+        { wch: 35 },
+        { wch: 18 },
+        { wch: 12 },
+        { wch: 24 },
+      ];
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Passengers");
+
+      const buffer = XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      let filename = "all-passengers.xlsx";
+
+      if (filter.type === "today") {
+        filename = "todays-registrations.xlsx";
+      } else if (filter.type === "destination") {
+        filename = `${filter.value}-passengers.xlsx`;
+      } else if (filter.type === "ward") {
+        filename = `ward-${filter.value}-passengers.xlsx`;
+      }
+
+      saveAs(blob, filename);
+    } catch (error) {
+      console.error("Excel export error:", error);
+      alert("Unable to export passenger data.");
+    } finally {
+      setLoading(false);
     }
-
-    const excelData = filteredData.map((item: any, index: number) => ({
-      "Sr No": index + 1,
-      Name: item.name,
-      "Mobile Number": item.mobile,
-      "Date of Birth": item.dob,
-      "Aadhaar Number": item.aadhaar,
-      "Voter ID": item.voter_id || "NA",
-      "Full Address": item.address,
-      Destination: item.destination,
-      "Ward Number": item.ward,
-      "Registration Date": new Date(item.created_at).toLocaleString("en-IN"),
-    }));
-
-    const worksheet = XLSX.utils.json_to_sheet(excelData);
-    worksheet["!cols"] = [
-      { wch: 8 }, { wch: 24 }, { wch: 16 }, { wch: 14 }, { wch: 18 },
-      { wch: 16 }, { wch: 40 }, { wch: 18 }, { wch: 14 }, { wch: 24 },
-    ];
-
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Passengers");
-
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: "xlsx",
-      type: "array",
-    });
-
-    const file = new Blob([excelBuffer], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-
-    const label =
-      filter.type === "all"
-        ? "All"
-        : filter.type === "today"
-        ? "Today"
-        : filter.type === "destination"
-        ? filter.value
-        : `Ward_${filter.value}`;
-
-    const safeLabel = label.replace(/[^a-zA-Z0-9_-]/g, "_");
-    saveAs(file, `Ganesh_Bus_Registration_${safeLabel}.xlsx`);
-  };
+  }
 
   const label =
     filter.type === "all"
-      ? "All Data"
+      ? "Export All Data"
       : filter.type === "today"
-      ? "Today's Data"
-      : filter.type === "destination"
-      ? filter.value
-      : `Ward ${filter.value}`;
+        ? "Export Today's Data"
+        : filter.type === "destination"
+          ? `Export ${filter.value}`
+          : `Export Ward ${filter.value}`;
 
   return (
     <button
-      onClick={exportExcel}
-      className="rounded-lg bg-green-600 px-5 py-3 text-white hover:bg-green-700"
+      type="button"
+      onClick={handleExport}
+      disabled={loading}
+      className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
     >
-      📥 Export {label}
+      <Download size={18} />
+      <span>{loading ? "Exporting..." : label}</span>
+      {!loading && (
+        <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
+          {count}
+        </span>
+      )}
     </button>
   );
 }

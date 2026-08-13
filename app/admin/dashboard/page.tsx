@@ -8,9 +8,6 @@ import DashboardCards, {
 } from "@/components/admin/DashboardCards";
 import PassengerTable from "@/components/admin/PassengerTable";
 import ExportExcel from "@/components/admin/ExportExcel";
-import PrintButton from "@/components/admin/PrintButton";
-
-import "./print.css";
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -33,8 +30,7 @@ export default function DashboardPage() {
           />
 
           <div className="mt-6 min-w-0 sm:mt-8">
-            <div className="mb-5 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center">
-              <PrintButton filter={filter} />
+            <div className="mb-5 flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <ExportExcel filter={filter} />
 
               {filter.type !== "all" && (
