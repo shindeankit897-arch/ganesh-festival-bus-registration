@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 
 export default function PassengerForm() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const schema = createPassengerSchema(t);
 
@@ -263,15 +263,94 @@ if (result.error) {
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="mumbai">Mumbai</SelectItem>
-                    <SelectItem value="ratnagiri">Ratnagiri</SelectItem>
-                    <SelectItem value="chiplun">Chiplun</SelectItem>
-                    <SelectItem value="khed">Khed</SelectItem>
-                    <SelectItem value="lanja">Lanja</SelectItem>
-                    <SelectItem value="rajapur">Rajapur</SelectItem>
-                    <SelectItem value="kankavali">Kankavali</SelectItem>
-                    <SelectItem value="goa">Goa</SelectItem>
-                  </SelectContent>
+  <SelectItem value="poladpur">
+    {language === "mr" ? "पोलादपूर" : "POLADPUR"}
+  </SelectItem>
+
+  <SelectItem value="dapoli">
+    {language === "mr" ? "दापोली" : "DAPOLI"}
+  </SelectItem>
+
+  <SelectItem value="devgad">
+    {language === "mr" ? "देवगड" : "DEVGAD"}
+  </SelectItem>
+
+  <SelectItem value="chiplun">
+    {language === "mr" ? "चिपळूण" : "CHIPLUN"}
+  </SelectItem>
+
+  <SelectItem value="khed">
+    {language === "mr" ? "खेड" : "KHED"}
+  </SelectItem>
+
+  <SelectItem value="shrivardhan">
+    {language === "mr" ? "श्रीवर्धन" : "SHRIVARDHAN"}
+  </SelectItem>
+
+  <SelectItem value="mangaon">
+    {language === "mr" ? "माणगाव" : "MANGAON"}
+  </SelectItem>
+
+  <SelectItem value="guhaghar">
+    {language === "mr" ? "गुहाघर" : "GUHAGHAR"}
+  </SelectItem>
+
+  <SelectItem value="sangmeshwar">
+    {language === "mr" ? "संगमेश्वर" : "SANGMESHWAR"}
+  </SelectItem>
+
+  <SelectItem value="lanja">
+    {language === "mr" ? "लांजा" : "LANJA"}
+  </SelectItem>
+
+  <SelectItem value="ratnagiri">
+    {language === "mr" ? "रत्नागिरी" : "RATNAGIRI"}
+  </SelectItem>
+
+  <SelectItem value="mahad">
+    {language === "mr" ? "महाड" : "MAHAD"}
+  </SelectItem>
+
+  <SelectItem value="kharepatan">
+    {language === "mr" ? "खारेपाटण" : "KHAREPATAN"}
+  </SelectItem>
+
+  <SelectItem value="kankavli">
+    {language === "mr" ? "कणकवली" : "KANKAVLI"}
+  </SelectItem>
+
+  <SelectItem value="taral">
+    {language === "mr" ? "ताराल" : "TARAL"}
+  </SelectItem>
+
+  <SelectItem value="rajapur">
+    {language === "mr" ? "राजापूर" : "RAJAPUR"}
+  </SelectItem>
+
+  <SelectItem value="sawantwadi">
+    {language === "mr" ? "सावंतवाडी" : "SAWANTWADI"}
+  </SelectItem>
+
+  <SelectItem value="sarkhpa">
+    {language === "mr" ? "सरखपा" : "SARKHPA"}
+  </SelectItem>
+
+  <SelectItem value="devrukh">
+    {language === "mr" ? "देवरुख" : "DEVRUKH"}
+  </SelectItem>
+
+  <SelectItem value="bhanbed">
+    {language === "mr" ? "भानबेड" : "BHANBED"}
+  </SelectItem>
+
+  <SelectItem value="malvan">
+    {language === "mr" ? "मालवण" : "MALVAN"}
+  </SelectItem>
+
+  <SelectItem value="mandangad">
+    {language === "mr" ? "मंडणगड" : "MANDANGAD"}
+  </SelectItem>
+</SelectContent>
                 </Select>
               )}
             />
