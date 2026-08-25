@@ -39,9 +39,13 @@ const destinations = [
 ] as const;
 
 const relations = [
-  ["wife", "पत्नी", "Wife"], ["daughter", "मुलगी", "Daughter"],
-  ["son", "मुलगा", "Son"], ["mother", "आई", "Mother"],
-  ["father", "वडील", "Father"], ["son_in_law", "जावई", "Son in Law"],
+  ["wife", "पत्नी", "Wife"], ["husband", "पती", "Husband"],
+  ["daughter", "मुलगी", "Daughter"], ["son", "मुलगा", "Son"],
+  ["brother", "भाऊ", "Brother"], ["sister", "बहीण", "Sister"],
+  ["mother", "आई", "Mother"], ["father", "वडील", "Father"],
+  ["father_in_law", "सासरे", "Father in Law"],
+  ["mother_in_law", "सासू", "Mother in Law"],
+  ["son_in_law", "जावई", "Son in Law"],
   ["daughter_in_law", "सून", "Daughter in Law"],
 ] as const;
 
@@ -139,6 +143,11 @@ export default function PassengerForm() {
                   <div><label className="mb-2 block font-medium">{t.aadhaar}</label><Input {...register(`familyMembers.${index}.aadhaar`, { setValueAs: (v) => normalizeDigits(String(v ?? "")) })} inputMode="numeric" maxLength={12} />{fieldError(memberError?.aadhaar?.message)}</div>
                   <div><label className="mb-2 block font-medium">{t.voter}</label><Input {...register(`familyMembers.${index}.voterId`)} /></div>
                   <div className="md:col-span-2"><label className="mb-2 block font-medium">{t.relation} *</label><Controller name={`familyMembers.${index}.relation`} control={control} render={({ field }) => <Select value={field.value} onValueChange={field.onChange}><SelectTrigger><SelectValue placeholder={t.selectRelation} /></SelectTrigger><SelectContent>{relations.map(([value, mr, en]) => <SelectItem key={value} value={value}>{language === "mr" ? mr : en}</SelectItem>)}</SelectContent></Select>} />{fieldError(memberError?.relation?.message)}</div>
+                </div>
+                <div className="mt-5 flex justify-end border-t border-orange-200 pt-4">
+                  <Button type="button" variant="outline" onClick={() => append(defaultMember)} className="w-full sm:w-auto">
+                    <Plus size={18} /> {t.addFamilyMember}
+                  </Button>
                 </div>
               </div>;
             })}
