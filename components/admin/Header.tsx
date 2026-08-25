@@ -25,32 +25,32 @@ export default function Header({ onMenuClick }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 border-b bg-white shadow-sm">
 
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex min-h-[64px] items-center justify-between px-3 py-3 sm:px-6 sm:py-4">
 
         {/* Left */}
 
-        <div className="flex items-center gap-4">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
 
           {/* Mobile Menu */}
 
           <button
             onClick={onMenuClick}
-            className="rounded-lg p-2 hover:bg-gray-100 lg:hidden"
+            className="shrink-0 rounded-lg p-2 hover:bg-gray-100 lg:hidden"
           >
             <Menu size={24} />
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
 
-            <BusFront className="text-orange-600" size={34} />
+            <BusFront className="text-orange-600" size={28} />
 
             <div>
 
-              <h1 className="text-xl font-bold text-orange-600">
+              <h1 className="truncate text-base font-bold text-orange-600 sm:text-xl">
                 Ganesh Festival Bus Management
               </h1>
 
-              <p className="text-sm text-gray-500">
+              <p className="hidden text-xs text-gray-500 sm:block sm:text-sm">
                 Admin Dashboard
               </p>
 
@@ -66,7 +66,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
 
           <div className="hidden text-right md:block">
 
-            <p className="text-sm text-gray-500">
+            <p className="hidden text-xs text-gray-500 sm:block sm:text-sm">
               {today}
             </p>
 
@@ -77,7 +77,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           </div>
 
           <UserCircle2
-            size={38}
+            size={34}
             className="text-orange-600"
           />
 

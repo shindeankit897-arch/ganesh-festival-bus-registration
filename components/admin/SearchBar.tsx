@@ -10,14 +10,14 @@ export default function SearchBar({
   onChange,
 }: SearchBarProps) {
   return (
-    <div className="mb-6">
+    <div className="mb-4 sm:mb-6">
 
       <input
         type="text"
         placeholder="🔍 Search by Name, Mobile or Aadhaar..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border p-3 shadow-sm outline-none focus:border-orange-500"
+        className="h-12 w-full rounded-xl border border-orange-100 bg-white px-4 text-sm shadow-sm outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 sm:text-base"
       />
 
     </div>

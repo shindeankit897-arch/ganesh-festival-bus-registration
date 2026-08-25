@@ -25,7 +25,7 @@ export default function PassengersPage() {
 
         <main className="p-6">
 
-          <PassengerTable />
+          <PassengerTable filter={{ type: "all" }} />
 
         </main>
 

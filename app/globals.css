@@ -128,3 +128,15 @@
     @apply font-sans;
   }
 }
+
+/* Admin dashboard mobile layout */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 639px) {
+  button, input {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

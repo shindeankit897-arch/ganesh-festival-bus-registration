@@ -19,14 +19,27 @@
   "clear": "Clear",
   "adminLogin": "Admin Login",
   "footer": "Designed & Developed by Ankit Shinde",
-
- "errors": {
-  "name": "Please enter your full name.",
-  "mobile": "Please enter a valid 10-digit mobile number.",
-  "dob": "Please select date of birth.",
-  "aadhaar": "Aadhaar must be exactly 12 digits.",
-  "address": "Please enter full address.",
-  "destination": "Please select destination.",
-  "ward": "Please select ward."
-}
+  "errors": {
+    "name": "Please enter your full name.",
+    "mobile": "Please enter a valid 10-digit mobile number.",
+    "dob": "Please select date of birth.",
+    "aadhaar": "Aadhaar must be exactly 12 digits.",
+    "address": "Please enter full address.",
+    "destination": "Please select destination.",
+    "ward": "Please select ward.",
+    "age": "Please enter a valid age.",
+    "gender": "Please select gender.",
+    "relation": "Please select relation."
+  },
+  "age": "Age",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "familyMembers": "Family Members",
+  "commonDetailsNote": "Address, destination and ward will be common for all family members.",
+  "addFamilyMember": "Add Family Member",
+  "memberNumber": "Family Member",
+  "removeFamilyMember": "Remove",
+  "relation": "Relation",
+  "selectRelation": "Select Relation"
 }

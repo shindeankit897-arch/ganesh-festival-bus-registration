@@ -11,7 +11,9 @@ type Passenger = {
   id?: string;
   name?: string;
   mobile?: string;
-  dob?: string;
+  age?: number | null;
+  gender?: string | null;
+  relation?: string | null;
   aadhaar?: string;
   voter_id?: string;
   address?: string;
@@ -115,7 +117,9 @@ export default function ExportExcel({ filter }: Props) {
         "Sr. No.": index + 1,
         Name: p.name || "",
         Mobile: p.mobile || "",
-        "Date of Birth": p.dob || "",
+        Age: p.age ?? "",
+        Gender: p.gender || "",
+        Relation: p.relation || "self",
         Aadhaar: p.aadhaar || "",
         "Voter ID": p.voter_id || "NA",
         Address: p.address || "",
@@ -131,7 +135,8 @@ export default function ExportExcel({ filter }: Props) {
         { wch: 8 },
         { wch: 25 },
         { wch: 15 },
-        { wch: 16 },
+        { wch: 10 },
+        { wch: 12 },
         { wch: 18 },
         { wch: 18 },
         { wch: 35 },

@@ -10,7 +10,9 @@ type Passenger = {
   id: string;
   name: string;
   mobile: string;
-  dob: string;
+  age: number | null;
+  gender: string | null;
+  relation: string | null;
   aadhaar: string;
   voter_id: string;
   address: string;
@@ -102,6 +104,8 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
         String(p.ward).toLowerCase().includes(keyword) ||
         String(p.aadhaar).includes(search) ||
         String(p.voter_id || "").toLowerCase().includes(keyword) ||
+        String(p.relation || "").toLowerCase().includes(keyword) ||
+        String(p.gender || "").toLowerCase().includes(keyword) ||
         String(p.address || "").toLowerCase().includes(keyword)
       );
     });
@@ -159,12 +163,14 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
             <table className="w-full table-fixed">
               <thead className="bg-orange-100">
                 <tr>
-                  <th className="w-[28%] p-4 text-left font-semibold">Name</th>
+                  <th className="w-[22%] p-4 text-left font-semibold">Name</th>
+                  <th className="w-[12%] p-4 text-left font-semibold">Age / Gender</th>
+                  <th className="w-[12%] p-4 text-left font-semibold">Relation</th>
                   <th className="w-[16%] p-4 text-left font-semibold">Mobile</th>
-                  <th className="w-[18%] p-4 text-left font-semibold">Destination</th>
-                  <th className="w-[10%] p-4 text-left font-semibold">Ward</th>
-                  <th className="w-[20%] p-4 text-left font-semibold">Registration Date</th>
-                  <th className="w-[8%] p-4 text-center font-semibold">View</th>
+                  <th className="w-[14%] p-4 text-left font-semibold">Destination</th>
+                  <th className="w-[8%] p-4 text-left font-semibold">Ward</th>
+                  <th className="w-[10%] p-4 text-left font-semibold">Date</th>
+                  <th className="w-[6%] p-4 text-center font-semibold">View</th>
                 </tr>
               </thead>
               <tbody>
@@ -174,6 +180,8 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
                     className="border-b transition hover:bg-orange-50"
                   >
                     <td className="break-words p-4 font-medium">{passenger.name}</td>
+                    <td className="p-4">{passenger.age ?? "-"} / {passenger.gender || "-"}</td>
+                    <td className="break-words p-4">{passenger.relation || "self"}</td>
                     <td className="break-words p-4">{passenger.mobile}</td>
                     <td className="break-words p-4">{passenger.destination}</td>
                     <td className="p-4">{passenger.ward}</td>
@@ -199,7 +207,7 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
             <div className="w-full overflow-hidden rounded-lg border border-orange-100">
               <div className="grid grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)_auto] gap-2 bg-orange-100 px-3 py-3 text-xs font-semibold text-gray-800">
                 <div>Passenger</div>
-                <div>Destination / Ward</div>
+                <div>Age / Gender</div>
                 <div className="text-center">View</div>
               </div>
 
@@ -216,18 +224,25 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
                       <p className="mt-1 break-all text-xs text-gray-500">
                         {passenger.mobile}
                       </p>
+                      <p className="mt-1 text-[11px] text-gray-500">
+                        {passenger.relation || "self"}
+                      </p>
                       <p className="mt-1 break-words text-[11px] text-gray-400">
                         {formatDate(passenger.created_at)}
                       </p>
                     </div>
 
                     <div className="min-w-0 text-xs">
-                      <p className="break-words font-medium uppercase text-gray-800">
+                      <p className="font-semibold text-gray-800">
+                        Age {passenger.age ?? "-"}
+                      </p>
+                      <p className="mt-1 capitalize text-gray-500">
+                        {passenger.gender || "-"}
+                      </p>
+                      <p className="mt-1 break-words uppercase text-gray-500">
                         {passenger.destination}
                       </p>
-                      <p className="mt-1 text-gray-500">
-                        Ward {passenger.ward}
-                      </p>
+                      <p className="mt-1 text-gray-500">Ward {passenger.ward}</p>
                     </div>
 
                     <button
@@ -265,7 +280,9 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
             <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6">
               <div className="min-w-0"><p className="text-sm text-gray-500">Full Name</p><h3 className="break-words font-semibold">{selectedPassenger.name}</h3></div>
               <div className="min-w-0"><p className="text-sm text-gray-500">Mobile Number</p><h3 className="break-all font-semibold">{selectedPassenger.mobile}</h3></div>
-              <div><p className="text-sm text-gray-500">Date of Birth</p><h3 className="font-semibold">{selectedPassenger.dob}</h3></div>
+              <div><p className="text-sm text-gray-500">Age</p><h3 className="font-semibold">{selectedPassenger.age ?? "-"}</h3></div>
+              <div><p className="text-sm text-gray-500">Gender</p><h3 className="font-semibold capitalize">{selectedPassenger.gender || "-"}</h3></div>
+              <div><p className="text-sm text-gray-500">Relation</p><h3 className="font-semibold">{selectedPassenger.relation || "self"}</h3></div>
               <div className="min-w-0"><p className="text-sm text-gray-500">Aadhaar Number</p><h3 className="break-all font-semibold">{selectedPassenger.aadhaar}</h3></div>
               <div className="min-w-0"><p className="text-sm text-gray-500">Voter ID</p><h3 className="break-all font-semibold">{selectedPassenger.voter_id || "NA"}</h3></div>
               <div className="min-w-0"><p className="text-sm text-gray-500">Destination</p><h3 className="break-words font-semibold">{selectedPassenger.destination}</h3></div>
@@ -281,13 +298,6 @@ export default function PassengerTable({ filter = { type: "all" } }: Props) {
             </div>
 
             <div className="flex flex-col gap-3 border-t p-4 sm:flex-row sm:justify-end sm:p-6">
-              <button
-                type="button"
-                onClick={() => window.print()}
-                className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700 sm:w-auto"
-              >
-                🖨 Print
-              </button>
               <button
                 type="button"
                 onClick={() => setSelectedPassenger(null)}
