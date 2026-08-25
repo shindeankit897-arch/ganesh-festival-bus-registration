@@ -46,7 +46,7 @@ const destinations = [
   ["kudal", "कुडाळ", "KUDAL"],
   ["sawantwadi", "सावंतवाडी", "SAWANTWADI"],
   ["devrukh", "देवरुख", "DEVRUKH"],
-  ["sarkhpa", "सरखपा", "SARKHPA"],
+  ["sakharpa", "साखरपा", "SAKHARPA"],
   ["bhambed", "भांबेड", "BHAMBED"],
   ["malvan", "मालवण", "MALVAN"],
   ["devgad", "देवगड", "DEVGAD"],

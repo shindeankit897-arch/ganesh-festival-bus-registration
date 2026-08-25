@@ -31,7 +31,7 @@ const destinationMr: Record<string, string> = {
   khed:"खेड", shrivardhan:"श्रीवर्धन", guhaghar:"गुहाघर", chiplun:"चिपळूण", pali:"पाली",
   sangmeshwar:"संगमेश्वर", lanja:"लांजा", ratnagiri:"रत्नागिरी", rajapur:"राजापूर",
   kharepatan:"खारेपाटण", tarele:"तळेरे", kankavli:"कणकवली", vaibhavwadi:"वैभववाडी",
-  kudal:"कुडाळ", sawantwadi:"सावंतवाडी", devrukh:"देवरुख", sarkhpa:"सरखपा",
+  kudal:"कुडाळ", sawantwadi:"सावंतवाडी", devrukh:"देवरुख", sakharpa:"साखरपा",
   bhambed:"भांबेड", malvan:"मालवण", devgad:"देवगड"
 };
 
