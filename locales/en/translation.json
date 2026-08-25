@@ -36,7 +36,7 @@
   "male": "Male",
   "female": "Female",
   "familyMembers": "Family Members",
-  "commonDetailsNote": "Address, destination and ward will be common for all family members.",
+  "commonDetailsNote": "Address, destination and ward will apply to all family members.",
   "addFamilyMember": "Add Family Member",
   "memberNumber": "Family Member",
   "removeFamilyMember": "Remove",
