@@ -12,7 +12,7 @@ export const familyMemberSchema = (t: any) => z.object({
   aadhaar: z.union([aadhaarSchema, z.literal("")]),
   voterId: z.string().optional(),
   relation: z.enum(
-    ["wife", "daughter", "son", "mother", "father", "son_in_law", "daughter_in_law"],
+    ["wife", "husband", "daughter", "son", "brother", "sister", "mother", "father", "father_in_law", "mother_in_law", "son_in_law", "daughter_in_law"],
     { error: t.errors.relation }
   ),
 });

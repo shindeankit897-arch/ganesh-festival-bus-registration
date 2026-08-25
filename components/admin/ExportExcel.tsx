@@ -27,16 +27,19 @@ type Passenger = {
 type Props = { filter: DashboardFilter };
 
 const destinationMr: Record<string, string> = {
-  poladpur:"पोलादपूर", dapoli:"दापोली", devgad:"देवगड", chiplun:"चिपळूण", khed:"खेड",
-  shrivardhan:"श्रीवर्धन", mangaon:"माणगाव", guhaghar:"गुहाघर", sangmeshwar:"संगमेश्वर", lanja:"लांजा",
-  ratnagiri:"रत्नागिरी", mahad:"महाड", kharepatan:"खारेपाटण", kankavli:"कणकवली", taral:"ताराल",
-  rajapur:"राजापूर", sawantwadi:"सावंतवाडी", sarkhpa:"सरखपा", devrukh:"देवरुख", bhanbed:"भानबेड",
-  malvan:"मालवण", mandangad:"मंडणगड"
+  mahad:"महाड", poladpur:"पोलादपूर", mangaon:"माणगाव", dapoli:"दापोली", mandangad:"मंडणगड",
+  khed:"खेड", shrivardhan:"श्रीवर्धन", guhaghar:"गुहाघर", chiplun:"चिपळूण", pali:"पाली",
+  sangmeshwar:"संगमेश्वर", lanja:"लांजा", ratnagiri:"रत्नागिरी", rajapur:"राजापूर",
+  kharepatan:"खारेपाटण", tarele:"तळेरे", kankavli:"कणकवली", vaibhavwadi:"वैभववाडी",
+  kudal:"कुडाळ", sawantwadi:"सावंतवाडी", devrukh:"देवरुख", sarkhpa:"सरखपा",
+  bhambed:"भांबेड", malvan:"मालवण", devgad:"देवगड"
 };
 
 const genderMr: Record<string, string> = { male: "पुरुष", female: "महिला" };
 const relationMr: Record<string, string> = {
-  self:"स्वतः", wife:"पत्नी", daughter:"मुलगी", son:"मुलगा", mother:"आई", father:"वडील",
+  self:"स्वतः", wife:"पत्नी", husband:"पती", daughter:"मुलगी", son:"मुलगा",
+  brother:"भाऊ", sister:"बहीण", mother:"आई", father:"वडील",
+  father_in_law:"सासरे", mother_in_law:"सासू",
   son_in_law:"जावई", daughter_in_law:"सून"
 };
 
